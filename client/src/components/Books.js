@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Card,Content,Heading,Media,Image,Columns} from 'react-bulma-components';
-import API from './../utils/API';
+import {Card,Content,Heading,Media,Image,Columns,Tile} from 'react-bulma-components';
+import API from '../utils/API';
 
-class Result extends Component{
+class Books extends Component{
   saveBook = (bookPicked) => {
     //const bookPicked = this.state.bookList.find(book => book.bookId === bookId);
     API.saveBook(bookPicked)
@@ -18,14 +18,14 @@ class Result extends Component{
   render(){
     return(
       <React.Fragment>
-         <Columns className="is-multiline">
+         <Tile kind="ancestor">
         
         {this.props.bookData.map(book =>{
         
           return (
-            
-            <Columns.Column key={this.props.from==='API'? book.bookId : book._id} className="column is-one-quarter">
-            <Card>
+            <Tile key={this.props.from==='API'? book.bookId : book._id} kind="parent" size={3}>
+            <Tile kind="child" >
+            <Card className="bm--card-equal-height">
             <Card.Content>
             <Heading size={4}>{book.title}</Heading>  
             <Media>
@@ -33,16 +33,15 @@ class Result extends Component{
               <Image renderas="p" size={64} alt="64x64" src={book.image} />
             </Media.Item>
             <Media.Item>
+              
               <Heading subtitle size={6}>
-                <p>Released: {book.date}</p>
-                {book.authors ? <p className="card-text">By: {book.authors.join(', ')}</p> : ''}
+                {book.authors}
               </Heading>
             </Media.Item>
             </Media>
-            <br/>
-            {book.description?               
-                 <div>{book.description.length>50?<Content size='small'>{book.description.split(' ').splice(0,50).join(" ")+'...'}</Content>:<Content size='small'>{book.description}</Content>}</div>:<div>No Description Found</div>}
-                
+                <Content size='small'>
+                 {book.description}
+                </Content>
               </Card.Content>
               <Card.Footer>
                 <Card.Footer.Item>
@@ -63,13 +62,15 @@ class Result extends Component{
                 </Card.Footer.Item>
               </Card.Footer>
             </Card> 
-            </Columns.Column>   
+            </Tile>
+            </Tile>   
           )
           })
         }
-        </Columns>
+        </Tile>
+        
         </React.Fragment>
       )}
 }
 
-export default Result;
+export default Books;
