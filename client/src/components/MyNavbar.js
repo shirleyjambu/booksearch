@@ -15,8 +15,8 @@ const MyNavbar = props =>{
       </Navbar.Brand>
       <Navbar.Menu>
         <Navbar.Container position="end">
-          <Navbar.Item href="/" >Search</Navbar.Item>
-          <Navbar.Item href="/saved" >Saved</Navbar.Item>
+          <Navbar.Item to="/" renderAs={Link}>Search</Navbar.Item>
+          <Navbar.Item to="/saved" renderAs={Link}>Saved</Navbar.Item>
         </Navbar.Container>
       </Navbar.Menu>
     </Navbar>
